@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSA Signature Demo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+    <h1>RSA Signature Demo</h1>
+    
+    <form id="signatureForm">
+        <label for="message">Message:</label>
+        <input type="text" id="message" name="message" required>
+        <button type="button" onclick="generateSignature()">Generate Signature</button>
+        <div id="signatureResult"></div>
+        <button type="button" onclick="verifySignature()">Verify Signature</button>
+        <div id="verificationResult"></div>
+    </form>
+</body>
+</html>
