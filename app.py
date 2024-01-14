@@ -56,9 +56,11 @@ def sign_message(message, private_key):
 
 def verify_signature(message, signature, public_key):
     n, e = public_key
+    print("In Verify Signature Function:",signature,type(signature))
     hash_value = int.from_bytes(hashlib.sha512(message).digest(), byteorder='big')
     hash_from_signature = pow(signature, e, n)
-    print('In Verify Signature:',hash_value)
+    print('In Verify Signature: The Hashed value is',hash_value)
+    print('In Verify Signature: The Hashed value from signature is',hash_from_signature)
     return hash_value == hash_from_signature
 
 @app.route('/')
@@ -88,7 +90,9 @@ def verify_signature_route():
         return jsonify({'error': 'Signature is empty'})
 
     try:
-        signature = int(signature_str, 16)
+        print("Captured Signature is:",signature_str,type(signature_str))
+        signature = int(signature_str)
+        print("Converted Signature is:",signature,type(signature))
     except ValueError:
         return jsonify({'error': 'Invalid signature format'})
 
