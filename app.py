@@ -20,17 +20,24 @@ def mod_inverse(a, m):
         raise ValueError("Inverse does not exist")
     return x % m
 
-def generate_key_pair(bits=8):
+def generate_key_pair(bits=16):
     p = generate_prime(bits)
     q = generate_prime(bits)
+    print("Prime Number P is:",p)
+    print("Prime Number Q is:",q)
     n = p * q
+    print("N is:",n)
     phi_n = (p - 1) * (q - 1)
+
+    print("Phi_N:",phi_n)
 
     e = 65537  # commonly used value for e
     d = mod_inverse(e, phi_n)
 
     public_key = (n, e)
     private_key = (n, d)
+
+    print("Public key is:",public_key)
 
     return public_key, private_key
 
@@ -72,7 +79,7 @@ def sign_message(message, private_key):
     hash_value = int.from_bytes(hashlib.sha512(message).digest(), byteorder='big')
     signature = pow(hash_value, d, n)
     print("The Private key is:",private_key)
-    print('In Sign Message: The Hashed value is',hash_value)
+    print('In Sign Signature: The Hashed value is',hash_value)
     print("The Signature Generated is:",signature)
     return signature
 
@@ -81,7 +88,7 @@ def verify_signature(message, signature, public_key):
     print("In Verify Signature Function:",signature,type(signature))
     print("The Public key in Verify is:",public_key)
     hash_value = int.from_bytes(hashlib.sha512(message).digest(), byteorder='big')
-    hash_from_signature = pow(signature,e,n)
+    hash_from_signature = pow(signature, e, n)
     print('In Verify Signature: The Hashed value is',hash_value)
     print('In Verify Signature: The Hashed value from signature is',hash_from_signature)
     return hash_value == hash_from_signature
